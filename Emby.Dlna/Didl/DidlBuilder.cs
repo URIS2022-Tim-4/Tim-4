@@ -1242,7 +1242,7 @@ namespace Emby.Dlna.Didl
             return (url, width, height);
         }
 
-        private class ImageDownloadInfo
+        private sealed class ImageDownloadInfo
         {
             internal Guid ItemId { get; set; }
 
