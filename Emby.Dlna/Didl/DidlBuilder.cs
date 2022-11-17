@@ -171,7 +171,6 @@ namespace Emby.Dlna.Didl
             AddSamsungBookmarkInfo(item, user, writer, streamInfo);
 
             // refID?
-            // storeAttribute(itemNode, object, ClassProperties.REF_ID, false);
 
             if (item is IHasMediaSources)
             {
