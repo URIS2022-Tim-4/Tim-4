@@ -243,7 +243,7 @@ namespace Emby.Server.Implementations.LiveTv
                 var openedId = info.Id;
                 Func<Task> closeFn = () => service.CloseLiveStream(openedId, CancellationToken.None);
 
-                liveStream = new ExclusiveLiveStream(info, closeFn);
+                liveStream = new ExclusiveLiveS(info, closeFn);
 
                 var startTime = DateTime.UtcNow;
                 await liveStream.Open(cancellationToken).ConfigureAwait(false);

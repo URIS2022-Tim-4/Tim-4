@@ -295,7 +295,7 @@ namespace Emby.Dlna.Main
                 bindAddresses = _networkManager.GetLoopbacks();
             }
 
-            foreach (IPNetAddress address in bindAddresses)
+            foreach (IPObject address in bindAddresses)
             {
                 if (address.AddressFamily == AddressFamily.InterNetworkV6)
                 {

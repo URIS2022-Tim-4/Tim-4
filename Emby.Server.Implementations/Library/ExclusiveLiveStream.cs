@@ -12,11 +12,11 @@ using MediaBrowser.Model.Dto;
 
 namespace Emby.Server.Implementations.Library
 {
-    public class ExclusiveLiveStream : ILiveStream
+    public class ExclusiveLiveS: ILiveStream
     {
         private readonly Func<Task> _closeFn;
 
-        public ExclusiveLiveStream(MediaSourceInfo mediaSource, Func<Task> closeFn)
+        public ExclusiveLiveS(MediaSourceInfo mediaSource, Func<Task> closeFn)
         {
             MediaSource = mediaSource;
             EnableStreamSharing = false;

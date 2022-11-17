@@ -133,12 +133,14 @@ namespace MediaBrowser.Controller.Entities
                     return false;
                 }
 
-                if (this is UserView)
+                var p1 = this;
+                if (p1 is UserView)
                 {
                     return false;
                 }
 
-                if (this is UserRootFolder)
+                var p2 = this;
+                if (p2 is UserRootFolder)
                 {
                     return false;
                 }

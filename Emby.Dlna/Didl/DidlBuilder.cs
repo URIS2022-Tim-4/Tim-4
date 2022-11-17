@@ -106,7 +106,6 @@ namespace Emby.Dlna.Didl
                     writer.WriteAttributeString("xmlns", "dc", null, NsDc);
                     writer.WriteAttributeString("xmlns", "dlna", null, NsDlna);
                     writer.WriteAttributeString("xmlns", "upnp", null, NsUpnp);
-                    // didl.SetAttribute("xmlns:sec", NS_SEC);
 
                     WriteXmlRootAttributes(_profile, writer);
 
@@ -160,7 +159,7 @@ namespace Emby.Dlna.Didl
             else
             {
                 var parent = item.DisplayParentId;
-                if (!parent.Equals(default))
+                if (!parent.Equals(Guid.Empty))
                 {
                     writer.WriteAttributeString("parentID", GetClientId(parent, null));
                 }
@@ -1158,12 +1157,7 @@ namespace Emby.Dlna.Didl
             int? width = imageInfo.Width;
             int? height = imageInfo.Height;
 
-            if (width == 0 || height == 0)
-            {
-                width = null;
-                height = null;
-            }
-            else if (width == -1 || height == -1)
+            if (width == 0 || height == 0 || width == -1 || height == -1)
             {
                 width = null;
                 height = null;
