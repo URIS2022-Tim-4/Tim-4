@@ -42,7 +42,6 @@ namespace DvdLib.Ifo
 
         public byte[] Palette { get; private set; } // 16*4 entries
 
-        private ushort _commandTableOffset;
 
         private ushort _programMapOffset;
         private ushort _cellPlaybackOffset;
@@ -87,7 +86,6 @@ namespace DvdLib.Ifo
             ProgramCount = (uint)(pbMode & 0x7F);
 
             Palette = br.ReadBytes(64);
-            _commandTableOffset = br.ReadUInt16();
             _programMapOffset = br.ReadUInt16();
             _cellPlaybackOffset = br.ReadUInt16();
             _cellPositionOffset = br.ReadUInt16();

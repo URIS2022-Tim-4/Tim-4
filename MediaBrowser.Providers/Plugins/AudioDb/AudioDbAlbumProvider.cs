@@ -33,7 +33,7 @@ namespace MediaBrowser.Providers.Plugins.AudioDb
         private readonly JsonSerializerOptions _jsonOptions = JsonDefaults.Options;
 
 #pragma warning disable SA1401, CA2211
-        public static AudioDbAlbumProvider Current;
+        public static readonly AudioDbAlbumProvider Current;
 #pragma warning restore SA1401, CA2211
 
         public AudioDbAlbumProvider(IServerConfigurationManager config, IFileSystem fileSystem, IHttpClientFactory httpClientFactory)
@@ -41,8 +41,6 @@ namespace MediaBrowser.Providers.Plugins.AudioDb
             _config = config;
             _fileSystem = fileSystem;
             _httpClientFactory = httpClientFactory;
-
-            Current = this;
         }
 
         /// <inheritdoc />
