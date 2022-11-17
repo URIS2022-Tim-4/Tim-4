@@ -180,11 +180,6 @@ namespace Emby.Server.Implementations.LiveTv.Listings
                         }
 
                         programEntry.BackdropImage = GetProgramImage(ApiUrl, imagesWithoutText, WideAspect, token);
-
-                        // programEntry.bannerImage = GetProgramImage(ApiUrl, data, "Banner", false) ??
-                        //    GetProgramImage(ApiUrl, data, "Banner-L1", false) ??
-                        //    GetProgramImage(ApiUrl, data, "Banner-LO", false) ??
-                        //    GetProgramImage(ApiUrl, data, "Banner-LOT", false);
                     }
                 }
 
