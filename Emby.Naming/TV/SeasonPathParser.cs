@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 
 namespace Emby.Naming.TV
 {
@@ -93,19 +94,15 @@ namespace Emby.Naming.TV
                 }
             }
 
-            // Look for one of the season folder names
-            foreach (var name in _seasonFolderNames)
+            foreach (var name in _seasonFolderNames.Where(name => filename.Contains(name, StringComparison.OrdinalIgnoreCase)))
             {
-                if (filename.Contains(name, StringComparison.OrdinalIgnoreCase))
+                var result = GetSeasonNumberFromPathSubstring(filename.Replace(name, " ", StringComparison.OrdinalIgnoreCase));
+                if (result.SeasonNumber.HasValue)
                 {
-                    var result = GetSeasonNumberFromPathSubstring(filename.Replace(name, " ", StringComparison.OrdinalIgnoreCase));
-                    if (result.SeasonNumber.HasValue)
-                    {
-                        return result;
-                    }
-
-                    break;
+                    return result;
                 }
+
+                break;
             }
 
             var parts = filename.Split(new[] { '.', '_', ' ', '-' }, StringSplitOptions.RemoveEmptyEntries);

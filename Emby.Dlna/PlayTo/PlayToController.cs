@@ -890,7 +890,7 @@ namespace Emby.Dlna.PlayTo
             return Task.CompletedTask;
         }
 
-        private class StreamParams
+        private sealed class StreamParams
         {
             private MediaSourceInfo _mediaSource;
             private IMediaSourceManager _mediaSourceManager;
@@ -948,13 +948,10 @@ namespace Emby.Dlna.PlayTo
                 {
                     var part = parts[i];
 
-                    if (string.Equals(part, "audio", StringComparison.OrdinalIgnoreCase) ||
-                        string.Equals(part, "videos", StringComparison.OrdinalIgnoreCase))
+                    if ((string.Equals(part, "audio", StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(part, "videos", StringComparison.OrdinalIgnoreCase)) && Guid.TryParse(parts[i + 1], out var result))
                     {
-                        if (Guid.TryParse(parts[i + 1], out var result))
-                        {
-                            return result;
-                        }
+                        return result;
                     }
                 }
 

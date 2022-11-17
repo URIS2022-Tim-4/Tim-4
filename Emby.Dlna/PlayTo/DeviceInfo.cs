@@ -11,7 +11,6 @@ namespace Emby.Dlna.PlayTo
     public class DeviceInfo
     {
         private readonly List<DeviceService> _services = new List<DeviceService>();
-        private string _baseUrl = string.Empty;
 
         public DeviceInfo()
         {
@@ -38,11 +37,7 @@ namespace Emby.Dlna.PlayTo
 
         public string PresentationUrl { get; set; }
 
-        public string BaseUrl
-        {
-            get => _baseUrl;
-            set => _baseUrl = value;
-        }
+        public string BaseUrl { get; set; } = string.Empty;
 
         public DeviceIcon Icon { get; set; }
 

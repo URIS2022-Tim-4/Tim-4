@@ -1057,8 +1057,6 @@ namespace Emby.Server.Implementations.Session
             return playedToCompletion;
         }
 
-
-
         private SessionInfo GetSessionToRemoteControl(string sessionId)
         {
             // Accept either device id or session id
