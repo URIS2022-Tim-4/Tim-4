@@ -665,7 +665,10 @@ namespace Emby.Dlna.Didl
                     }
                     else
                     {
-                        writer.WriteAttributeString("parentID", GetClientId(parent.Value, null));
+                        if (parent.HasValue)
+                        {
+                            writer.WriteAttributeString("parentID", GetClientId(parent.Value, null));
+                        }
                     }
                 }
             }
