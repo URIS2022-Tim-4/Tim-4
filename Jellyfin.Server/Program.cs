@@ -60,7 +60,7 @@ namespace Jellyfin.Server
         {
             static Task ErrorParsingArguments(IEnumerable<Error> errors)
             {
-                //komentar
+                // komentar
                 Environment.ExitCode = 1;
                 return Task.CompletedTask;
             }
@@ -612,6 +612,7 @@ namespace Jellyfin.Server
             }
             catch (Exception ex)
             {
+#pragma warning disable CA1305 // Specify IFormatProvider
                 Log.Logger = new LoggerConfiguration()
                     .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss}] [{Level:u3}] [{ThreadId}] {SourceContext}: {Message:lj}{NewLine}{Exception}")
                     .WriteTo.Async(x => x.File(
@@ -622,6 +623,7 @@ namespace Jellyfin.Server
                     .Enrich.FromLogContext()
                     .Enrich.WithThreadId()
                     .CreateLogger();
+#pragma warning restore CA1305 // Specify IFormatProvider
 
                 Log.Logger.Fatal(ex, "Failed to create/read logger configuration");
             }
