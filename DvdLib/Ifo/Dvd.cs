@@ -11,7 +11,7 @@ namespace DvdLib.Ifo
     public class Dvd
     {
         private readonly ushort _titleSetCount;
-        public readonly List<Title> Titles;
+        private readonly List<Title> Titles;
 
         private ushort _titleCount;
         public readonly Dictionary<ushort, string> VTSPaths = new Dictionary<ushort, string>();
