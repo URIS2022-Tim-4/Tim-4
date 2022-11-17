@@ -99,8 +99,6 @@ namespace Emby.Dlna.Didl
                 // If this using are changed to single lines, then write.Flush needs to be appended before the return.
                 using (var writer = XmlWriter.Create(builder, settings))
                 {
-                    // writer.WriteStartDocument();
-
                     writer.WriteStartElement(string.Empty, "DIDL-Lite", NsDidl);
 
                     writer.WriteAttributeString("xmlns", "dc", null, NsDc);
