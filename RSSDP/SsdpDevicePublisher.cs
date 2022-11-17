@@ -319,7 +319,7 @@ namespace Rssdp.Infrastructure
             IPAddress receivedOnlocalIpAddress,
             CancellationToken cancellationToken)
         {
-            bool isRootDevice = (device as SsdpRootDevice) != null;
+            bool isRootDevice = device is SsdpRootDevice;
             if (isRootDevice)
             {
                 SendSearchResponse(SsdpConstants.UpnpDeviceTypeRootDevice, device, GetUsn(device.Udn, SsdpConstants.UpnpDeviceTypeRootDevice), endPoint, receivedOnlocalIpAddress, cancellationToken);
