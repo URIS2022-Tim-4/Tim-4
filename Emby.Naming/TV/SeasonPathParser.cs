@@ -94,9 +94,10 @@ namespace Emby.Naming.TV
                 }
             }
 
-            foreach (var name in _seasonFolderNames.Where(name => filename.Contains(name, StringComparison.OrdinalIgnoreCase)))
+            foreach (var result in from name in _seasonFolderNames.Where(name => filename.Contains(name, StringComparison.OrdinalIgnoreCase))
+                                   let result = GetSeasonNumberFromPathSubstring(filename.Replace(name, " ", StringComparison.OrdinalIgnoreCase))
+                                   select result)
             {
-                var result = GetSeasonNumberFromPathSubstring(filename.Replace(name, " ", StringComparison.OrdinalIgnoreCase));
                 if (result.SeasonNumber.HasValue)
                 {
                     return result;
