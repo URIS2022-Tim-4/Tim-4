@@ -715,7 +715,8 @@ namespace MediaBrowser.Controller.Entities
                 return PostFilterAndSort(items, query, true);
             }
 
-            if (this is not UserRootFolder
+            var o1 = this;
+            if (o1 is not UserRootFolder
                 && this is not AggregateFolder
                 && query.ParentId.Equals(default))
             {

@@ -159,12 +159,11 @@ namespace Emby.Dlna.ContentDirectory
                 }
             }
 
-            foreach (var user in _userManager.Users)
+            foreach (var user in from user in _userManager.Users
+                                 where user.HasPermission(PermissionKind.IsAdministrator)
+                                 select user)
             {
-                if (user.HasPermission(PermissionKind.IsAdministrator))
-                {
-                    return user;
-                }
+                return user;
             }
 
             return _userManager.Users.FirstOrDefault();

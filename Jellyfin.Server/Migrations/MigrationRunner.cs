@@ -14,7 +14,7 @@ namespace Jellyfin.Server.Migrations
     /// <summary>
     /// The class that knows which migrations to apply and how to apply them.
     /// </summary>
-    public sealed class MigrationRunner
+    public static class MigrationRunner
     {
         /// <summary>
         /// The list of known pre-startup migrations, in order of applicability.

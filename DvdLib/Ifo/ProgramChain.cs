@@ -28,7 +28,7 @@ namespace DvdLib.Ifo
         public byte[] AudioStreamControl { get; private set; } // 8*2 entries
         public byte[] SubpictureStreamControl { get; private set; } // 32*4 entries
 
-        private ushort _nextProgramNumber;
+        public ushort _nextProgramNumber;
 
         private ushort _prevProgramNumber;
 

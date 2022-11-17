@@ -255,55 +255,6 @@ namespace Emby.Dlna.Didl
             }
         }
 
-        private bool AddSubtitleElement(XmlWriter writer, SubtitleStreamInfo info)
-        {
-            var subtitleProfile = _profile.SubtitleProfiles
-                .FirstOrDefault(i => string.Equals(info.Format, i.Format, StringComparison.OrdinalIgnoreCase)
-                                    && i.Method == SubtitleDeliveryMethod.External);
-
-            if (subtitleProfile == null)
-            {
-                return false;
-            }
-
-            var subtitleMode = subtitleProfile.DidlMode;
-
-            if (string.Equals(subtitleMode, "CaptionInfoEx", StringComparison.OrdinalIgnoreCase))
-            {
-                // <sec:CaptionInfoEx sec:type="srt">http://192.168.1.3:9999/video.srt</sec:CaptionInfoEx>
-                // <sec:CaptionInfo sec:type="srt">http://192.168.1.3:9999/video.srt</sec:CaptionInfo>
-
-                writer.WriteStartElement("sec", "CaptionInfoEx", null);
-                writer.WriteAttributeString("sec", "type", null, info.Format.ToLowerInvariant());
-
-                writer.WriteString(info.Url);
-                writer.WriteFullEndElement();
-            }
-            else if (string.Equals(subtitleMode, "smi", StringComparison.OrdinalIgnoreCase))
-            {
-                writer.WriteStartElement(string.Empty, "res", NsDidl);
-
-                writer.WriteAttributeString("protocolInfo", "http-get:*:smi/caption:*");
-
-                writer.WriteString(info.Url);
-                writer.WriteFullEndElement();
-            }
-            else
-            {
-                writer.WriteStartElement(string.Empty, "res", NsDidl);
-                var protocolInfo = string.Format(
-                    CultureInfo.InvariantCulture,
-                    "http-get:*:text/{0}:*",
-                    info.Format.ToLowerInvariant());
-                writer.WriteAttributeString("protocolInfo", protocolInfo);
-
-                writer.WriteString(info.Url);
-                writer.WriteFullEndElement();
-            }
-
-            return true;
-        }
-
         private void AddVideoResource(XmlWriter writer, Filter filter, string contentFeatures, StreamInfo streamInfo)
         {
             writer.WriteStartElement(string.Empty, "res", NsDidl);
@@ -405,6 +356,55 @@ namespace Emby.Dlna.Didl
             writer.WriteString(url);
 
             writer.WriteFullEndElement();
+        }
+
+        private bool AddSubtitleElement(XmlWriter writer, SubtitleStreamInfo info)
+        {
+            var subtitleProfile = _profile.SubtitleProfiles
+                .FirstOrDefault(i => string.Equals(info.Format, i.Format, StringComparison.OrdinalIgnoreCase)
+                                    && i.Method == SubtitleDeliveryMethod.External);
+
+            if (subtitleProfile == null)
+            {
+                return false;
+            }
+
+            var subtitleMode = subtitleProfile.DidlMode;
+
+            if (string.Equals(subtitleMode, "CaptionInfoEx", StringComparison.OrdinalIgnoreCase))
+            {
+                // <sec:CaptionInfoEx sec:type="srt">http://192.168.1.3:9999/video.srt</sec:CaptionInfoEx>
+                // <sec:CaptionInfo sec:type="srt">http://192.168.1.3:9999/video.srt</sec:CaptionInfo>
+
+                writer.WriteStartElement("sec", "CaptionInfoEx", null);
+                writer.WriteAttributeString("sec", "type", null, info.Format.ToLowerInvariant());
+
+                writer.WriteString(info.Url);
+                writer.WriteFullEndElement();
+            }
+            else if (string.Equals(subtitleMode, "smi", StringComparison.OrdinalIgnoreCase))
+            {
+                writer.WriteStartElement(string.Empty, "res", NsDidl);
+
+                writer.WriteAttributeString("protocolInfo", "http-get:*:smi/caption:*");
+
+                writer.WriteString(info.Url);
+                writer.WriteFullEndElement();
+            }
+            else
+            {
+                writer.WriteStartElement(string.Empty, "res", NsDidl);
+                var protocolInfo = string.Format(
+                    CultureInfo.InvariantCulture,
+                    "http-get:*:text/{0}:*",
+                    info.Format.ToLowerInvariant());
+                writer.WriteAttributeString("protocolInfo", protocolInfo);
+
+                writer.WriteString(info.Url);
+                writer.WriteFullEndElement();
+            }
+
+            return true;
         }
 
         private string GetDisplayName(BaseItem item, StubType? itemStubType, BaseItem context)

@@ -481,7 +481,7 @@ namespace Emby.Dlna
             };
         }
 
-        private class InternalProfileInfo
+        private sealed class InternalProfileInfo
         {
             internal InternalProfileInfo(DeviceProfileInfo info, string path)
             {
