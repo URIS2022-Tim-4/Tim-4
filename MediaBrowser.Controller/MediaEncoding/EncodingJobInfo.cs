@@ -21,7 +21,7 @@ namespace MediaBrowser.Controller.MediaEncoding
     public class EncodingJobInfo
     {
         public int? OutputAudioBitrate;
-        public int? OutputAudioChannels;
+        private int? OutputAudioChannels;
 
         private TranscodeReason? _transcodeReasons = null;
 
