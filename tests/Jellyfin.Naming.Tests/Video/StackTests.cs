@@ -395,7 +395,7 @@ namespace Jellyfin.Naming.Tests.Video
             Assert.Equal(2, result[0].Files.Count);
         }
 
-        private void TestStackInfo(FileStack stack, string name, int fileCount)
+        private void TestStackInfo(FileStacks stack, string name, int fileCount)
         {
             Assert.Equal(fileCount, stack.Files.Count);
             Assert.Equal(name, stack.Name);

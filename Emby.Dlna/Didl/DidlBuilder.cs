@@ -635,6 +635,11 @@ namespace Emby.Dlna.Didl
 
         public void WriteFolderElement(XmlWriter writer, BaseItem folder, StubType? stubType, BaseItem context, int childCount, Filter filter, string requestedId = null)
         {
+            if (folder == null)
+            {
+                throw new ArgumentNullException(nameof(folder));
+            }
+
             writer.WriteStartElement(string.Empty, "container", NsDidl);
 
             writer.WriteAttributeString("restricted", "1");
@@ -659,7 +664,7 @@ namespace Emby.Dlna.Didl
                 else
                 {
                     var parent = folder.DisplayParentId;
-                    if (parent.Equals(default))
+                    if (parent.Equals(Guid.Empty))
                     {
                         writer.WriteAttributeString("parentID", "0");
                     }

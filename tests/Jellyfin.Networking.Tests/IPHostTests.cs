@@ -1,3 +1,4 @@
+using System;
 using FsCheck;
 using FsCheck.Xunit;
 using MediaBrowser.Common.Net;
@@ -31,7 +32,16 @@ namespace Jellyfin.Networking.Tests
 
         [Property]
         public static Property TryParse_IPv4Address_True(IPv4Address address)
-            => IPHost.TryParse(address.Item.ToString(), out _).ToProperty();
+        {
+            if (address is null)
+            {
+                throw new ArgumentNullException(nameof(address));
+            }
+
+            var result = IPHost.TryParse(address.Item.ToString(), out _).ToProperty();
+            Assert.IsType<Property>(result);
+            return result;
+        }
 
         [Property]
         public static Property TryParse_IPv6Address_True(IPv6Address address)

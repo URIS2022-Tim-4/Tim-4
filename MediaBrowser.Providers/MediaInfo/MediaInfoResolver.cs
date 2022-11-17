@@ -142,8 +142,6 @@ namespace MediaBrowser.Providers.MediaInfo
                     catch (Exception ex)
                     {
                         _logger.LogError(ex, "Error getting external streams from {Path}", pathInfo.Path);
-
-                        continue;
                     }
                 }
             }

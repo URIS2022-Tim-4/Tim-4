@@ -49,13 +49,8 @@ namespace Jellyfin.Server.Filters
             context.SchemaGenerator.GenerateSchema(typeof(SessionMessageType), context.SchemaRepository);
             context.SchemaGenerator.GenerateSchema(typeof(ServerDiscoveryInfo), context.SchemaRepository);
 
-            foreach (var configuration in _serverConfigurationManager.GetConfigurationStores())
+            foreach (var configuration in _serverConfigurationManager.GetConfigurationStores().Where(conf => _ignoredConfigurations.IndexOf(conf.ConfigurationType) != -1))
             {
-                if (_ignoredConfigurations.IndexOf(configuration.ConfigurationType) != -1)
-                {
-                    continue;
-                }
-
                 context.SchemaGenerator.GenerateSchema(configuration.ConfigurationType, context.SchemaRepository);
             }
 

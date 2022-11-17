@@ -799,13 +799,18 @@ namespace Emby.Server.Implementations.Library
             return result.Item1;
         }
 
-        public async Task CloseLiveStream(string id)
+        public Task CloseLiveStream(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentNullException(nameof(id));
             }
 
+            return LiveStreamSemaphore(nameof(id));
+        }
+
+        private async Task LiveStreamSemaphore(string id)
+        {
             await _liveStreamSemaphore.WaitAsync().ConfigureAwait(false);
 
             try

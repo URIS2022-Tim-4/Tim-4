@@ -280,7 +280,7 @@ namespace Emby.Server.Implementations.Session
             }
 
             var activityDate = DateTime.UtcNow;
-            var session = await GetSessionInfo(appName, appVersion, deviceId, deviceName, remoteEndPoint, user).ConfigureAwait(false);
+            var session = await GetSessionInfos(appName, appVersion, deviceId, deviceName, remoteEndPoint, user).ConfigureAwait(false);
             var lastActivityDate = session.LastActivityDate;
             session.LastActivityDate = activityDate;
 
@@ -459,6 +459,28 @@ namespace Emby.Server.Implementations.Session
             => appName + deviceId;
 
         /// <summary>
+        /// Gets the session.
+        /// </summary>
+        /// <param name="sessionId">The session identifier.</param>
+        /// <param name="throwOnMissing">if set to <c>true</c> [throw on missing].</param>
+        /// <returns>SessionInfo.</returns>
+        /// <exception cref="ResourceNotFoundException">
+        /// No session with an Id equal to <c>sessionId</c> was found
+        /// and <c>throwOnMissing</c> is <c>true</c>.
+        /// </exception>
+        private SessionInfo GetSession(string sessionId, bool throwOnMissing = true)
+        {
+            var session = Sessions.FirstOrDefault(i => string.Equals(i.Id, sessionId, StringComparison.Ordinal));
+            if (session == null && throwOnMissing)
+            {
+                throw new ResourceNotFoundException(
+                    string.Format(CultureInfo.InvariantCulture, "Session {0} not found.", sessionId));
+            }
+
+            return session;
+        }
+
+        /// <summary>
         /// Gets the connection.
         /// </summary>
         /// <param name="appName">Type of the client.</param>
@@ -468,7 +490,7 @@ namespace Emby.Server.Implementations.Session
         /// <param name="remoteEndPoint">The remote end point.</param>
         /// <param name="user">The user.</param>
         /// <returns>SessionInfo.</returns>
-        private async Task<SessionInfo> GetSessionInfo(
+        public Task<SessionInfo> GetSession(
             string appName,
             string appVersion,
             string deviceId,
@@ -483,6 +505,17 @@ namespace Emby.Server.Implementations.Session
                 throw new ArgumentNullException(nameof(deviceId));
             }
 
+            return GetSessionInfos(appName, appVersion, deviceId, deviceName, remoteEndPoint, user);
+        }
+
+        private async Task<SessionInfo> GetSessionInfos(
+            string appName,
+            string appVersion,
+            string deviceId,
+            string deviceName,
+            string remoteEndPoint,
+            User user)
+        {
             var key = GetSessionKey(appName, deviceId);
 
             CheckDisposed();
@@ -1022,28 +1055,6 @@ namespace Emby.Server.Implementations.Session
             }
 
             return playedToCompletion;
-        }
-
-        /// <summary>
-        /// Gets the session.
-        /// </summary>
-        /// <param name="sessionId">The session identifier.</param>
-        /// <param name="throwOnMissing">if set to <c>true</c> [throw on missing].</param>
-        /// <returns>SessionInfo.</returns>
-        /// <exception cref="ResourceNotFoundException">
-        /// No session with an Id equal to <c>sessionId</c> was found
-        /// and <c>throwOnMissing</c> is <c>true</c>.
-        /// </exception>
-        private SessionInfo GetSession(string sessionId, bool throwOnMissing = true)
-        {
-            var session = Sessions.FirstOrDefault(i => string.Equals(i.Id, sessionId, StringComparison.Ordinal));
-            if (session == null && throwOnMissing)
-            {
-                throw new ResourceNotFoundException(
-                    string.Format(CultureInfo.InvariantCulture, "Session {0} not found.", sessionId));
-            }
-
-            return session;
         }
 
         private SessionInfo GetSessionToRemoteControl(string sessionId)
