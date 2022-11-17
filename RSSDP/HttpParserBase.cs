@@ -123,7 +123,7 @@ namespace Rssdp.Infrastructure
             }
         }
 
-        private int ParseHeaders(System.Net.Http.Headers.HttpHeaders headers, System.Net.Http.Headers.HttpHeaders contentHeaders, string[] lines)
+        private void ParseHeaders(System.Net.Http.Headers.HttpHeaders headers, System.Net.Http.Headers.HttpHeaders contentHeaders, string[] lines)
         {
             // Blank line separates headers from content, so read headers until we find blank line.
             int lineIndex = 1;
@@ -147,8 +147,6 @@ namespace Rssdp.Infrastructure
 
                 ParseHeader(line, headers, contentHeaders);
             }
-
-            return lineIndex;
         }
 
         private List<string> ParseValues(string headerValue)

@@ -21,7 +21,7 @@ namespace MediaBrowser.Controller.MediaEncoding
     public class EncodingJobInfo
     {
         public int? OutputAudioBitrate;
-        public int? OutputAudioChannels;
+        private int? outputAudioChannels;
 
         private TranscodeReason? _transcodeReasons = null;
 
@@ -59,6 +59,12 @@ namespace MediaBrowser.Controller.MediaEncoding
         public MediaStream VideoStream { get; set; }
 
         public VideoType VideoType { get; set; }
+
+        public int? OutputAudioChannels
+        {
+            get { return outputAudioChannels; }
+            set { outputAudioChannels = value; }
+        }
 
         public Dictionary<string, string> RemoteHttpHeaders { get; set; }
 

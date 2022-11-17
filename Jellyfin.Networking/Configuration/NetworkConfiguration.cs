@@ -230,6 +230,6 @@ namespace Jellyfin.Networking.Configuration
         /// <summary>
         /// Gets or sets a value indicating whether the published server uri is based on information in HTTP requests.
         /// </summary>
-        public bool EnablePublishedServerUriByRequest { get; set; } = false;
+        public bool EnablePublishedServerUriByRequest { get; set; }
     }
 }

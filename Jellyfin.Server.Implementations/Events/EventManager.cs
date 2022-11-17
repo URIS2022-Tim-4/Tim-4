@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using MediaBrowser.Controller;
 using MediaBrowser.Controller.Events;
@@ -55,9 +55,13 @@ namespace Jellyfin.Server.Implementations.Events
                 {
                     await service.OnEvent(eventArgs).ConfigureAwait(false);
                 }
-                catch (Exception e)
+                catch (NullReferenceException e)
                 {
                     _logger.LogError(e, "Uncaught exception in EventConsumer {Type}: ", service.GetType());
+                }
+                catch (InvalidOperationException e)
+                {
+                    _logger.LogError(e, "Invalid operation!");
                 }
             }
         }

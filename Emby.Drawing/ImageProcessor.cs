@@ -372,6 +372,11 @@ namespace Emby.Drawing
             int width = info.Width;
             int height = info.Height;
 
+            if (info == null)
+            {
+                throw new System.ArgumentNullException("Error");
+            }
+
             if (height > 0 && width > 0)
             {
                 return new ImageDimensions(width, height);

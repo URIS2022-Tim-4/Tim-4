@@ -210,7 +210,7 @@ namespace Emby.Naming.TV
             FillAdditional(path, info, expressions);
         }
 
-        private void FillAdditional(string path, EpisodePathParserResult info, IEnumerable<EpisodeExpression> expressions)
+        private static void FillAdditional(string path, EpisodePathParserResult info, IEnumerable<EpisodeExpression> expressions)
         {
             foreach (var i in expressions)
             {

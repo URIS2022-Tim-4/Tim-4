@@ -47,7 +47,6 @@ namespace Rssdp.Infrastructure
         private int _LocalPort;
         private int _MulticastTtl;
 
-        private bool _IsShared;
         private readonly bool _enableMultiSocketBinding;
 
         /// <summary>
@@ -300,12 +299,7 @@ namespace Rssdp.Infrastructure
         /// <remarks>
         /// <para>If true, disposing an instance of a <see cref="SsdpDeviceLocator"/>or a <see cref="ISsdpDevicePublisher"/> will not dispose this comms server instance. The calling code is responsible for managing the lifetime of the server.</para>
         /// </remarks>
-        public bool IsShared
-        {
-            get { return _IsShared; }
-
-            set { _IsShared = value; }
-        }
+        public bool IsShared { get; set; }
 
         /// <summary>
         /// Stops listening for requests, disposes this instance and all internal resources.
