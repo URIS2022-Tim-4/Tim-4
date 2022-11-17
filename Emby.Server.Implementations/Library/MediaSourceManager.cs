@@ -838,7 +838,6 @@ namespace Emby.Server.Implementations.Library
             }
         }
 
-
         private (IMediaSourceProvider MediaSourceProvider, string KeyId) GetProvider(string key)
         {
             if (string.IsNullOrEmpty(key))
