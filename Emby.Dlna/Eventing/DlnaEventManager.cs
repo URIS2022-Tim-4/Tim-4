@@ -76,7 +76,7 @@ namespace Emby.Dlna.Eventing
             return GetEventSubscriptionResponse(id, requestedTimeoutString, timeout);
         }
 
-        private int? ParseTimeout(string header)
+        private static int? ParseTimeout(string header)
         {
             if (!string.IsNullOrEmpty(header))
             {

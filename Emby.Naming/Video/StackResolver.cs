@@ -9,7 +9,7 @@ using MediaBrowser.Model.IO;
 namespace Emby.Naming.Video
 {
     /// <summary>
-    /// Resolve <see cref="FileStack"/> from list of paths.
+    /// Resolve <see cref="FileStacks"/> from list of paths.
     /// </summary>
     public static class StackResolver
     {
@@ -18,8 +18,8 @@ namespace Emby.Naming.Video
         /// </summary>
         /// <param name="files">List of paths.</param>
         /// <param name="namingOptions">The naming options.</param>
-        /// <returns>Enumerable <see cref="FileStack"/> of directories.</returns>
-        public static IEnumerable<FileStack> ResolveDirectories(IEnumerable<string> files, NamingOptions namingOptions)
+        /// <returns>Enumerable <see cref="FileStacks"/> of directories.</returns>
+        public static IEnumerable<FileStacks> ResolveDirectories(IEnumerable<string> files, NamingOptions namingOptions)
         {
             return Resolve(files.Select(i => new FileSystemMetadata { FullName = i, IsDirectory = true }), namingOptions);
         }
@@ -29,8 +29,8 @@ namespace Emby.Naming.Video
         /// </summary>
         /// <param name="files">List of paths.</param>
         /// <param name="namingOptions">The naming options.</param>
-        /// <returns>Enumerable <see cref="FileStack"/> of files.</returns>
-        public static IEnumerable<FileStack> ResolveFiles(IEnumerable<string> files, NamingOptions namingOptions)
+        /// <returns>Enumerable <see cref="FileStacks"/> of files.</returns>
+        public static IEnumerable<FileStacks> ResolveFiles(IEnumerable<string> files, NamingOptions namingOptions)
         {
             return Resolve(files.Select(i => new FileSystemMetadata { FullName = i, IsDirectory = false }), namingOptions);
         }
@@ -39,8 +39,8 @@ namespace Emby.Naming.Video
         /// Resolves audiobooks from paths.
         /// </summary>
         /// <param name="files">List of paths.</param>
-        /// <returns>Enumerable <see cref="FileStack"/> of directories.</returns>
-        public static IEnumerable<FileStack> ResolveAudioBooks(IEnumerable<AudioBookFileInfo> files)
+        /// <returns>Enumerable <see cref="FileStacks"/> of directories.</returns>
+        public static IEnumerable<FileStacks> ResolveAudioBooks(IEnumerable<AudioBookFileInfo> files)
         {
             var groupedDirectoryFiles = files.GroupBy(file => Path.GetDirectoryName(file.Path));
 
@@ -50,13 +50,13 @@ namespace Emby.Naming.Video
                 {
                     foreach (var file in directory)
                     {
-                        var stack = new FileStack(Path.GetFileNameWithoutExtension(file.Path), false, new[] { file.Path });
+                        var stack = new FileStacks(Path.GetFileNameWithoutExtension(file.Path), false, new[] { file.Path });
                         yield return stack;
                     }
                 }
                 else
                 {
-                    var stack = new FileStack(Path.GetFileName(directory.Key), false, directory.Select(f => f.Path).ToArray());
+                    var stack = new FileStacks(Path.GetFileName(directory.Key), false, directory.Select(f => f.Path).ToArray());
                     yield return stack;
                 }
             }
@@ -67,8 +67,8 @@ namespace Emby.Naming.Video
         /// </summary>
         /// <param name="files">List of paths.</param>
         /// <param name="namingOptions">The naming options.</param>
-        /// <returns>Enumerable <see cref="FileStack"/> of videos.</returns>
-        public static IEnumerable<FileStack> Resolve(IEnumerable<FileSystemMetadata> files, NamingOptions namingOptions)
+        /// <returns>Enumerable <see cref="FileStacks"/> of videos.</returns>
+        public static IEnumerable<FileStacks> Resolve(IEnumerable<FileSystemMetadata> files, NamingOptions namingOptions)
         {
             var potentialFiles = files
                 .Where(i => i.IsDirectory || VideoResolver.IsVideoFile(i.FullName, namingOptions) || VideoResolver.IsStubFile(i.FullName, namingOptions))
@@ -128,7 +128,7 @@ namespace Emby.Naming.Video
                     continue;
                 }
 
-                yield return new FileStack(fileName, stack.IsDirectory, stack.Parts.Select(kv => kv.Value.FullName).ToArray());
+                yield return new FileStacks(fileName, stack.IsDirectory, stack.Parts.Select(kv => kv.Value.FullName).ToArray());
             }
         }
 

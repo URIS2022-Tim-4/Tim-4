@@ -468,7 +468,7 @@ namespace Emby.Server.Implementations.Session
         /// <param name="remoteEndPoint">The remote end point.</param>
         /// <param name="user">The user.</param>
         /// <returns>SessionInfo.</returns>
-        private async Task<SessionInfo> GetSessionInfo(
+        public Task<SessionInfo> GetSessionInfo(
             string appName,
             string appVersion,
             string deviceId,
@@ -483,6 +483,17 @@ namespace Emby.Server.Implementations.Session
                 throw new ArgumentNullException(nameof(deviceId));
             }
 
+            return GetSession(appName, appVersion, deviceId, deviceName, remoteEndPoint, user);
+        }
+
+        private async Task<SessionInfo> GetSession(
+            string appName,
+            string appVersion,
+            string deviceId,
+            string deviceName,
+            string remoteEndPoint,
+            User user)
+        {
             var key = GetSessionKey(appName, deviceId);
 
             CheckDisposed();
