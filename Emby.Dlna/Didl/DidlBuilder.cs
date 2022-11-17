@@ -159,7 +159,7 @@ namespace Emby.Dlna.Didl
             else
             {
                 var parent = item.DisplayParentId;
-                if (!parent.Equals(default))
+                if (!parent.Equals(Guid.Empty))
                 {
                     writer.WriteAttributeString("parentID", GetClientId(parent, null));
                 }
