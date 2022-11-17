@@ -11,6 +11,6 @@ namespace Emby.Dlna.PlayTo
         STOPPED,
         PLAYING,
         TRANSITIONING,
-        PAUSED_PLAYBACK
+        PAUSEDPLAYBACK
     }
 }
