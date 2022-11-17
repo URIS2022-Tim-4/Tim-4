@@ -1003,13 +1003,10 @@ namespace Emby.Dlna.Didl
 
             if (!_profile.EnableAlbumArtInDidl)
             {
-                if (string.Equals(item.MediaType, MediaType.Audio, StringComparison.OrdinalIgnoreCase)
-                    || string.Equals(item.MediaType, MediaType.Video, StringComparison.OrdinalIgnoreCase))
+                if ((string.Equals(item.MediaType, MediaType.Audio, StringComparison.OrdinalIgnoreCase)
+                    || string.Equals(item.MediaType, MediaType.Video, StringComparison.OrdinalIgnoreCase)) && !stubType.HasValue)
                 {
-                    if (!stubType.HasValue)
-                    {
                         return;
-                    }
                 }
             }
 
