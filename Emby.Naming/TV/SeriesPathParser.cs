@@ -28,12 +28,9 @@ namespace Emby.Naming.TV
                 }
             }
 
-            if (result != null)
+            if (result != null && (!string.IsNullOrEmpty(result.SeriesName)))
             {
-                if (!string.IsNullOrEmpty(result.SeriesName))
-                {
                     result.SeriesName = result.SeriesName.Trim(' ', '_', '.', '-');
-                }
             }
 
             return result ?? new SeriesPathParserResult();

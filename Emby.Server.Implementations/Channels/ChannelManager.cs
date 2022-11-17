@@ -361,8 +361,9 @@ namespace Emby.Server.Implementations.Channels
                 {
                     _fileSystem.DeleteFile(path);
                 }
-                catch
+                catch (ArgumentNullException e)
                 {
+                    Console.WriteLine("{0} Exception caught.", e);
                 }
 
                 return;
@@ -866,7 +867,7 @@ namespace Emby.Server.Implementations.Channels
                     throw new InvalidOperationException("Channel returned a null result from GetChannelItems");
                 }
 
-                await CacheResponse(result, cachePath);
+                await CacheResponse(result, cachePath).ConfigureAwait(false);
 
                 return result;
             }

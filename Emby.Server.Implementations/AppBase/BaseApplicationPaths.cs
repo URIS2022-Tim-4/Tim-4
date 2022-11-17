@@ -10,7 +10,7 @@ namespace Emby.Server.Implementations.AppBase
     /// </summary>
     public abstract class BaseApplicationPaths : IApplicationPaths
     {
-        private string _dataPath;
+        private readonly string _dataPath;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseApplicationPaths"/> class.
