@@ -45,9 +45,6 @@ namespace Emby.Server.Implementations.Devices
                     _logger.LogError("Invalid value found in device id file");
                 }
             }
-            catch (DirectoryNotFoundException)
-            {
-            }
             catch (FileNotFoundException)
             {
             }

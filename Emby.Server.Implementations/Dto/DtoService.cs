@@ -1139,7 +1139,6 @@ namespace Emby.Server.Implementations.Dto
                 // TODO maybe remove the if statement entirely
                 // if (options.ContainsField(ItemFields.SeriesPrimaryImage))
                 {
-                    episodeSeries ??= episode.Series;
                     if (episodeSeries != null)
                     {
                         dto.SeriesPrimaryImageTag = GetTagAndFillBlurhash(dto, episodeSeries, ImageType.Primary);
