@@ -189,7 +189,7 @@ namespace Emby.Dlna
             return profileInfo.Headers.Any(i => IsMatch(headers, i));
         }
 
-        private bool IsMatch(IHeaderDictionary headers, HttpHeaderInfo header)
+        private static bool IsMatch(IHeaderDictionary headers, HttpHeaderInfo header)
         {
             // Handle invalid user setup
             if (string.IsNullOrEmpty(header.Name))
