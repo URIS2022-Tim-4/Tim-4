@@ -663,17 +663,14 @@ namespace Emby.Dlna.Didl
                 }
                 else
                 {
-                    var parent = folder?.DisplayParentId;
+                    var parent = folder.DisplayParentId;
                     if (parent.Equals(Guid.Empty))
                     {
                         writer.WriteAttributeString("parentID", "0");
                     }
                     else
                     {
-                        if (parent.HasValue)
-                        {
-                            writer.WriteAttributeString("parentID", GetClientId(parent.Value, null));
-                        }
+                        writer.WriteAttributeString("parentID", GetClientId(parent, null));
                     }
                 }
             }

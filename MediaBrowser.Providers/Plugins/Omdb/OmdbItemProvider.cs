@@ -254,6 +254,11 @@ namespace MediaBrowser.Providers.Plugins.Omdb
 
         private class SearchResult
         {
+            public SearchResult(string title)
+            {
+                Title = title;
+            }
+
             public string Title { get; set; }
 
             public string Year { get; set; }
