@@ -113,7 +113,7 @@ namespace Emby.Server.Implementations.Plugins
             {
                 UpdatePluginSuperceedStatus(plugin);
 
-                if (plugin.IsEnabledAndSupported == false)
+                if (!plugin.IsEnabledAndSupported)
                 {
                     _logger.LogInformation("Skipping disabled plugin {Version} of {Name} ", plugin.Version, plugin.Name);
                     continue;
