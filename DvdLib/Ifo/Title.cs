@@ -39,10 +39,7 @@ namespace DvdLib.Ifo
         }
 
         internal void ParseTT_SRPT(BinaryReader br)
-        {
-            byte titleType = br.ReadByte();
-            // TODO parse Title Type
-
+        {  
             AngleCount = br.ReadByte();
             ChapterCount = br.ReadUInt16();
             _parentalManagementMask = br.ReadUInt16();
