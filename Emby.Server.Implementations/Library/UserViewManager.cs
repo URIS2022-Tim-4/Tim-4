@@ -323,9 +323,6 @@ namespace Emby.Server.Implementations.Library
                             mediaTypes.Add(MediaType.Audio);
                             break;
                         case CollectionType.Photos:
-                            mediaTypes.Add(MediaType.Photo);
-                            mediaTypes.Add(MediaType.Video);
-                            break;
                         case CollectionType.HomeVideos:
                             mediaTypes.Add(MediaType.Photo);
                             mediaTypes.Add(MediaType.Video);

@@ -1552,10 +1552,6 @@ namespace Jellyfin.Api.Controllers
             job ??= _transcodingJobHelper.OnTranscodeBeginRequest(playlistPath, TranscodingJobType);
             return await GetSegmentResult(state, playlistPath, segmentPath, segmentExtension, segmentId, job, cancellationToken).ConfigureAwait(false);
         }
-
-        private static double[] GetSegmentLengths(StreamState state)
-            => GetSegmentLengthsInternal(state.RunTimeTicks ?? 0, state.SegmentLength);
-
         internal static double[] GetSegmentLengthsInternal(long runtimeTicks, int segmentlength)
         {
             var segmentLengthTicks = TimeSpan.FromSeconds(segmentlength).Ticks;

@@ -21,7 +21,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Emby.Server.Implementations.LiveTv.TunerHosts.HdHomerun
 {
-    public class HdHomerunUdpStream : LiveStream, IDirectStreamProvider
+    public class HdHomerunUdpStreaming : LiveStream, IDirectStreamProvider
     {
         private const int RtpHeaderBytes = 12;
 
@@ -29,7 +29,7 @@ namespace Emby.Server.Implementations.LiveTv.TunerHosts.HdHomerun
         private readonly IHdHomerunChannelCommands _channelCommands;
         private readonly int _numTuners;
 
-        public HdHomerunUdpStream(
+        public HdHomerunUdpStreaming(
             MediaSourceInfo mediaSource,
             TunerHostInfo tunerHostInfo,
             string originalStreamId,
