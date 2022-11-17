@@ -7,7 +7,9 @@ using System.Collections.Generic;
 
 namespace Emby.Dlna.PlayTo
 {
+#pragma warning disable CA1067 // Override Object.Equals(object) when implementing IEquatable<T>
     public class UBaseObject : IEquatable<UBaseObject>
+#pragma warning restore CA1067 // Override Object.Equals(object) when implementing IEquatable<T>
     {
         public string Id { get; set; }
 
