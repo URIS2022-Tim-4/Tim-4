@@ -11,9 +11,8 @@ namespace DvdLib.Ifo
     public class Dvd
     {
         private readonly ushort _titleSetCount;
-        public readonly List<Title> Titles;
+        public  List<Title> Titles;
 
-        private ushort _titleCount;
         public readonly Dictionary<ushort, string> VTSPaths = new Dictionary<ushort, string>();
         public Dvd(string path)
         {
@@ -65,6 +64,7 @@ namespace DvdLib.Ifo
 
         private void ReadTT_SRPT(BinaryReader read)
         {
+            ushort _titleCount;
             _titleCount = read.ReadUInt16();
             read.BaseStream.Seek(6, SeekOrigin.Current);
             for (uint titleNum = 1; titleNum <= _titleCount; titleNum++)

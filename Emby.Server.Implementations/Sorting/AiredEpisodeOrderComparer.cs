@@ -69,7 +69,7 @@ namespace Emby.Server.Implementations.Sorting
                 return CompareEpisodeToSpecial(x, y);
             }
 
-            return CompareEpisodeToSpecial(y, x) * -1;
+            return CompareEpisodeToSpecial(x, y) * -1;
         }
 
         private static int CompareEpisodeToSpecial(Episode x, Episode y)

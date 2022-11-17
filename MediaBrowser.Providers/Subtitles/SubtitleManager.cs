@@ -133,6 +133,54 @@ namespace MediaBrowser.Providers.Subtitles
             return results.SelectMany(i => i).ToArray();
         }
 
+
+        public Task<RemoteSubtitleInfo[]> SearchSubtitles(Video video, string language, bool? isPerfectMatch, bool isAutomated, CancellationToken cancellationToken)
+        {
+            if (video.VideoType != VideoType.VideoFile)
+            {
+                return Task.FromResult(Array.Empty<RemoteSubtitleInfo>());
+            }
+
+            VideoContentType mediaType;
+
+            if (video is Episode)
+            {
+                mediaType = VideoContentType.Episode;
+            }
+            else if (video is Movie)
+            {
+                mediaType = VideoContentType.Movie;
+            }
+            else
+            {
+                // These are the only supported types
+                return Task.FromResult(Array.Empty<RemoteSubtitleInfo>());
+            }
+
+            var request = new SubtitleSearchRequest
+            {
+                ContentType = mediaType,
+                IndexNumber = video.IndexNumber,
+                Language = language,
+                MediaPath = video.Path,
+                Name = video.Name,
+                ParentIndexNumber = video.ParentIndexNumber,
+                ProductionYear = video.ProductionYear,
+                ProviderIds = video.ProviderIds,
+                RuntimeTicks = video.RunTimeTicks,
+                IsPerfectMatch = isPerfectMatch ?? false,
+                IsAutomated = isAutomated
+            };
+
+            if (video is Episode episode)
+            {
+                request.IndexNumberEnd = episode.IndexNumberEnd;
+                request.SeriesName = episode.SeriesName;
+            }
+
+            return SearchSubtitles(request, cancellationToken);
+        }
+
         /// <inheritdoc />
         public Task DownloadSubtitles(Video video, string subtitleId, CancellationToken cancellationToken)
         {
@@ -278,53 +326,6 @@ namespace MediaBrowser.Providers.Subtitles
         }
 
         /// <inheritdoc />
-        public Task<RemoteSubtitleInfo[]> SearchSubtitles(Video video, string language, bool? isPerfectMatch, bool isAutomated, CancellationToken cancellationToken)
-        {
-            if (video.VideoType != VideoType.VideoFile)
-            {
-                return Task.FromResult(Array.Empty<RemoteSubtitleInfo>());
-            }
-
-            VideoContentType mediaType;
-
-            if (video is Episode)
-            {
-                mediaType = VideoContentType.Episode;
-            }
-            else if (video is Movie)
-            {
-                mediaType = VideoContentType.Movie;
-            }
-            else
-            {
-                // These are the only supported types
-                return Task.FromResult(Array.Empty<RemoteSubtitleInfo>());
-            }
-
-            var request = new SubtitleSearchRequest
-            {
-                ContentType = mediaType,
-                IndexNumber = video.IndexNumber,
-                Language = language,
-                MediaPath = video.Path,
-                Name = video.Name,
-                ParentIndexNumber = video.ParentIndexNumber,
-                ProductionYear = video.ProductionYear,
-                ProviderIds = video.ProviderIds,
-                RuntimeTicks = video.RunTimeTicks,
-                IsPerfectMatch = isPerfectMatch ?? false,
-                IsAutomated = isAutomated
-            };
-
-            if (video is Episode episode)
-            {
-                request.IndexNumberEnd = episode.IndexNumberEnd;
-                request.SeriesName = episode.SeriesName;
-            }
-
-            return SearchSubtitles(request, cancellationToken);
-        }
-
         private void Normalize(IEnumerable<RemoteSubtitleInfo> subtitles)
         {
             foreach (var sub in subtitles)

@@ -749,7 +749,7 @@ namespace Emby.Naming.Common
         /// <summary>
         /// Gets or sets the folder name to extra types mapping.
         /// </summary>
-        public Dictionary<string, ExtraType> AllExtrasTypesFolderNames { get; set; }
+        public Dictionary<string, ExtraType> AllExtrasTypesFolderNames { get; }
 
         /// <summary>
         /// Gets or sets list of audio file extensions.

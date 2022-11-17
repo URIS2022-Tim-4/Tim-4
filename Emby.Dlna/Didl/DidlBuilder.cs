@@ -171,7 +171,6 @@ namespace Emby.Dlna.Didl
             AddSamsungBookmarkInfo(item, user, writer, streamInfo);
 
             // refID?
-            // storeAttribute(itemNode, object, ClassProperties.REF_ID, false);
 
             if (item is IHasMediaSources)
             {
@@ -1004,13 +1003,10 @@ namespace Emby.Dlna.Didl
 
             if (!_profile.EnableAlbumArtInDidl)
             {
-                if (string.Equals(item.MediaType, MediaType.Audio, StringComparison.OrdinalIgnoreCase)
-                    || string.Equals(item.MediaType, MediaType.Video, StringComparison.OrdinalIgnoreCase))
+                if ((string.Equals(item.MediaType, MediaType.Audio, StringComparison.OrdinalIgnoreCase)
+                    || string.Equals(item.MediaType, MediaType.Video, StringComparison.OrdinalIgnoreCase)) && !stubType.HasValue)
                 {
-                    if (!stubType.HasValue)
-                    {
                         return;
-                    }
                 }
             }
 
@@ -1242,7 +1238,7 @@ namespace Emby.Dlna.Didl
             return (url, width, height);
         }
 
-        private class ImageDownloadInfo
+        private sealed class ImageDownloadInfo
         {
             internal Guid ItemId { get; set; }
 

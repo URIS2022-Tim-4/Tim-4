@@ -2016,9 +2016,11 @@ namespace Emby.Server.Implementations.Data
                     statement.TryBind("@ItemId", item.Id);
                     statement.TryBind("@ChapterIndex", index);
 
-                    foreach (var row in statement.ExecuteQuery())
+                    var row = statement.ExecuteQuery().FirstOrDefault();
+
+                    if (row != null)
                     {
-                        return GetChapter(row, item);
+                        return (ChapterInfo)row;
                     }
                 }
             }

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Emby.Dlna.PlayTo
 {
-    public class UBaseObject
+    public sealed class UBaseObject : IEquatable<UBaseObject>
     {
         public string Id { get; set; }
 
@@ -52,11 +52,16 @@ namespace Emby.Dlna.PlayTo
             }
         }
 
-        public bool Equals(UBaseObject obj)
+        public override bool Equals(object obj)
         {
-            ArgumentNullException.ThrowIfNull(obj);
+            return Equals(obj as UBaseObject);
+        }
 
-            return string.Equals(Id, obj.Id, StringComparison.Ordinal);
+        public bool Equals(UBaseObject other)
+        {
+            ArgumentNullException.ThrowIfNull(other);
+
+            return string.Equals(Id, other.Id, StringComparison.Ordinal);
         }
     }
 }
