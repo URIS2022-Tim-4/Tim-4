@@ -313,6 +313,11 @@ namespace Jellyfin.Networking.Manager
             return _bindAddresses.Exclude(_bindExclusions, false);
         }
 
+        private Collection<IPObject> CheckHelp(IPObject obj, bool help)
+        {
+            return help ? new Collection<IPObject>(_interfaceAddresses) : new Collection<IPObject>();
+        }
+
         /// <inheritdoc/>
         public string GetBindInterface(string source, out int? port)
         {
