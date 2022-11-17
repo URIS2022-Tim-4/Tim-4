@@ -60,7 +60,7 @@ namespace Jellyfin.Server
         {
             static Task ErrorParsingArguments(IEnumerable<Error> errors)
             {
-                //komentar
+                // komentar
                 Environment.ExitCode = 1;
                 return Task.CompletedTask;
             }

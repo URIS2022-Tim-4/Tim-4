@@ -15,7 +15,6 @@ namespace DvdLib.Ifo
 
     public class ProgramChain
     {
-        private byte _programCount;
         public readonly List<Program> Programs;
 
         private byte _cellCount;
@@ -59,6 +58,7 @@ namespace DvdLib.Ifo
 
         internal void ParseHeader(BinaryReader br)
         {
+            byte _programCount;
             long startPos = br.BaseStream.Position;
 
             br.ReadUInt16();

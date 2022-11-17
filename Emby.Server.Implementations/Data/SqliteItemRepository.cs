@@ -1439,8 +1439,9 @@ namespace Emby.Server.Implementations.Data
                 {
                     item = Activator.CreateInstance(type) as BaseItem;
                 }
-                catch
+                catch (ArgumentNullException ex)
                 {
+                    Console.WriteLine(ex.Message);
                 }
             }
 

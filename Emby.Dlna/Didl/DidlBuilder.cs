@@ -658,14 +658,14 @@ namespace Emby.Dlna.Didl
                 }
                 else
                 {
-                    var parent = folder.DisplayParentId;
-                    if (parent.Equals(default))
+                    var parent = folder?.DisplayParentId;
+                    if (parent.Equals(Guid.Empty))
                     {
                         writer.WriteAttributeString("parentID", "0");
                     }
                     else
                     {
-                        writer.WriteAttributeString("parentID", GetClientId(parent, null));
+                        writer.WriteAttributeString("parentID", GetClientId((Guid)parent, null));
                     }
                 }
             }
