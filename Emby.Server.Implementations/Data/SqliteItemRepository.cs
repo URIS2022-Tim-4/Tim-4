@@ -1318,7 +1318,6 @@ namespace Emby.Server.Implementations.Data
                 using (var statement = PrepareStatement(connection, _retrieveItemColumnsSelectQuery))
                 {
                     statement.TryBind("@guid", id);
-
                     foreach (var row in statement.ExecuteQuery())
                     {
                         return GetItem(row, new InternalItemsQuery());

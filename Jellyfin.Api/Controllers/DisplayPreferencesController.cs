@@ -178,7 +178,9 @@ namespace Jellyfin.Api.Controllers
 
             foreach (var key in displayPreferences.CustomPrefs.Keys.Where(key => key.StartsWith("homesection", StringComparison.OrdinalIgnoreCase)))
             {
+#pragma warning disable CA1305 // Specify IFormatProvider
                 var order = int.Parse(key.AsSpan().Slice("homesection".Length));
+#pragma warning restore CA1305 // Specify IFormatProvider
                 if (!Enum.TryParse<HomeSectionType>(displayPreferences.CustomPrefs[key], true, out var type))
                 {
                     type = order < 8 ? defaults[order] : HomeSectionType.None;
