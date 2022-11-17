@@ -23,7 +23,9 @@ namespace DvdLib.Ifo
 
         public readonly List<ProgramChain> ProgramChains;
 
-        public readonly List<Chapter> Chapters;
+        private readonly List<Chapter> _chapters;
+
+        public List<Chapter> Chapters { get { return _chapters; } init { _chapters = value; } }
 
         public Title(uint titleNum)
         {
