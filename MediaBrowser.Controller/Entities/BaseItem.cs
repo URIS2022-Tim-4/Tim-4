@@ -768,6 +768,8 @@ namespace MediaBrowser.Controller.Entities
 
         public virtual bool SupportsExternalTransfer => false;
 
+        Dictionary<string, string> IHasProviderIds.ProviderIds { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public virtual double GetDefaultPrimaryImageAspectRatio()
         {
             return 0;
@@ -1270,9 +1272,13 @@ namespace MediaBrowser.Controller.Entities
 
                     await LibraryManager.UpdateImagesAsync(this).ConfigureAwait(false); // ensure all image properties in DB are fresh
                 }
-                catch (Exception ex)
+                catch (NullReferenceException ex)
                 {
-                    Logger.LogError(ex, "Error refreshing owned items for {Path}", Path ?? Name);
+                    Logger.LogError("Something went wrong you have a Null Reference Exception");
+                }
+                catch (InvalidOperationException ex)
+                {
+                    Logger.LogError("Something went wrong you have Innvalid Operation Exception");
                 }
             }
 

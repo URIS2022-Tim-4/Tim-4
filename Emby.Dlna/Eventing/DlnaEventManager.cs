@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
+using Jellyfin.Data.Entities.Libraries;
 using Jellyfin.Extensions;
 using MediaBrowser.Common.Extensions;
 using MediaBrowser.Common.Net;
@@ -58,11 +59,7 @@ namespace Emby.Dlna.Eventing
             var timeout = ParseTimeout(requestedTimeoutString) ?? 300;
             var id = "uuid:" + Guid.NewGuid().ToString("N", CultureInfo.InvariantCulture);
 
-            _logger.LogDebug(
-                "Creating event subscription for {0} with timeout of {1} to {2}",
-                notificationType,
-                timeout,
-                callbackUrl);
+            _logger.LogInformation("Creating event subscription for {NotificType} with timeout of {Timeout} to {CAllback}", notificationType, timeout, callbackUrl);
 
             _subscriptions.TryAdd(id, new EventSubscription
             {
