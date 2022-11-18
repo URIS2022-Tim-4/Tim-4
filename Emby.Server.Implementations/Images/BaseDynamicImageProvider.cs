@@ -133,6 +133,11 @@ namespace Emby.Server.Implementations.Images
             return CreateCollage(primaryItem, items, outputPath, 640, 360);
         }
 
+        protected string CreateThumbCollage(BaseItem primaryItem, IEnumerable<BaseItem> items, string outputPath, int width, int height)
+        {
+            return CreateCollage(primaryItem, items, outputPath, width, height);
+        }
+
         protected virtual IEnumerable<string> GetStripCollageImagePaths(BaseItem primaryItem, IEnumerable<BaseItem> items)
         {
             var useBackdrop = primaryItem is CollectionFolder || primaryItem is UserView;
@@ -174,11 +179,6 @@ namespace Emby.Server.Implementations.Images
         protected string CreateSquareCollage(BaseItem primaryItem, IEnumerable<BaseItem> items, string outputPath)
         {
             return CreateCollage(primaryItem, items, outputPath, 600, 600);
-        }
-
-        protected string CreateThumbCollage(BaseItem primaryItem, IEnumerable<BaseItem> items, string outputPath, int width, int height)
-        {
-            return CreateCollage(primaryItem, items, outputPath, width, height);
         }
 
         private string CreateCollage(BaseItem primaryItem, IEnumerable<BaseItem> items, string outputPath, int width, int height)

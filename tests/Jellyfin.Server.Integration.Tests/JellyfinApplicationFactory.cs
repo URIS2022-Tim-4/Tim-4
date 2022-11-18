@@ -28,7 +28,9 @@ namespace Jellyfin.Server.Integration.Tests
         static JellyfinApplicationFactory()
         {
             // Perform static initialization that only needs to happen once per test-run
+#pragma warning disable CA1305 // Specify IFormatProvider
             Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
+#pragma warning restore CA1305 // Specify IFormatProvider
             Program.PerformStaticInitialization();
         }
 

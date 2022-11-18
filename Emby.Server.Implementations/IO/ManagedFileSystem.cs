@@ -7,6 +7,7 @@ using Jellyfin.Extensions;
 using MediaBrowser.Common.Configuration;
 using MediaBrowser.Model.IO;
 using Microsoft.Extensions.Logging;
+using static Prometheus.DotNetRuntime.EventListening.Parsers.GcEventParser.Events;
 
 namespace Emby.Server.Implementations.IO
 {
@@ -223,6 +224,11 @@ namespace Emby.Server.Implementations.IO
             return GetFileSystemMetadata(fileInfo);
         }
 
+        private static bool Check(FileSystemInfo info)
+        {
+            return info is DirectoryInfo || (info.Attributes & FileAttributes.Directory) == FileAttributes.Directory;
+        }
+
         private FileSystemMetadata GetFileSystemMetadata(FileSystemInfo info)
         {
             var result = new FileSystemMetadata
@@ -235,7 +241,7 @@ namespace Emby.Server.Implementations.IO
 
             if (result.Exists)
             {
-                result.IsDirectory = info is DirectoryInfo || (info.Attributes & FileAttributes.Directory) == FileAttributes.Directory;
+                result.IsDirectory = Check(info);
 
                 // if (!result.IsDirectory)
                 // {

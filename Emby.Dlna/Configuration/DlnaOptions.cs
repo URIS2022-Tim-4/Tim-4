@@ -87,6 +87,6 @@ namespace Emby.Dlna.Configuration
         /// <summary>
         /// gets or sets a value indicating whether to send only matched host.
         /// </summary>
-        public bool SendOnlyMatchedHost { get; set; } = true;
+        public bool SendOnlyMatchedHost { get; set; }
     }
 }

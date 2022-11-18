@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using Jellyfin.Api.Attributes;
 using Microsoft.OpenApi.Models;
@@ -14,20 +14,14 @@ namespace Jellyfin.Server.Filters
         /// <inheritdoc />
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
-            foreach (var parameterDescription in context.ApiDescription.ParameterDescriptions)
+            foreach (var parameterDescription in context.ApiDescription.ParameterDescriptions.Where(parameterDescription => parameterDescription.CustomAttributes().OfType<ParameterObsoleteAttribute>().Any()))
             {
-                if (parameterDescription
-                    .CustomAttributes()
-                    .OfType<ParameterObsoleteAttribute>()
-                    .Any())
+                foreach (var parameter in operation.Parameters)
                 {
-                    foreach (var parameter in operation.Parameters)
+                    if (parameter.Name.Equals(parameterDescription.Name, StringComparison.Ordinal))
                     {
-                        if (parameter.Name.Equals(parameterDescription.Name, StringComparison.Ordinal))
-                        {
-                            parameter.Deprecated = true;
-                            break;
-                        }
+                        parameter.Deprecated = true;
+                        break;
                     }
                 }
             }

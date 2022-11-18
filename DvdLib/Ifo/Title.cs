@@ -23,7 +23,9 @@ namespace DvdLib.Ifo
 
         public readonly List<ProgramChain> ProgramChains;
 
-        public readonly List<Chapter> Chapters;
+        private readonly List<Chapter> _chapters;
+
+        public List<Chapter> Chapters { get { return _chapters; } init { _chapters = value; } }
 
         public Title(uint titleNum)
         {
@@ -39,10 +41,7 @@ namespace DvdLib.Ifo
         }
 
         internal void ParseTT_SRPT(BinaryReader br)
-        {
-            byte titleType = br.ReadByte();
-            // TODO parse Title Type
-
+        {  
             AngleCount = br.ReadByte();
             ChapterCount = br.ReadUInt16();
             _parentalManagementMask = br.ReadUInt16();

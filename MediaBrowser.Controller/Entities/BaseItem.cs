@@ -709,12 +709,13 @@ namespace MediaBrowser.Controller.Entities
         {
             get
             {
-                if (this is BasePluginFolder || this is Channel)
+                var currentObj = this;
+                if (currentObj is BasePluginFolder || currentObj is Channel)
                 {
                     return true;
                 }
 
-                if (this is IHasCollectionType view)
+                if (currentObj is IHasCollectionType view)
                 {
                     if (string.Equals(view.CollectionType, CollectionType.LiveTv, StringComparison.OrdinalIgnoreCase))
                     {
@@ -766,6 +767,8 @@ namespace MediaBrowser.Controller.Entities
         public IReadOnlyList<MediaUrl> RemoteTrailers { get; set; }
 
         public virtual bool SupportsExternalTransfer => false;
+
+        Dictionary<string, string> IHasProviderIds.ProviderIds { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public virtual double GetDefaultPrimaryImageAspectRatio()
         {
@@ -1269,9 +1272,13 @@ namespace MediaBrowser.Controller.Entities
 
                     await LibraryManager.UpdateImagesAsync(this).ConfigureAwait(false); // ensure all image properties in DB are fresh
                 }
-                catch (Exception ex)
+                catch (NullReferenceException)
                 {
-                    Logger.LogError(ex, "Error refreshing owned items for {Path}", Path ?? Name);
+                    Logger.LogError("Something went wrong you have a Null Reference Exception");
+                }
+                catch (InvalidOperationException)
+                {
+                    Logger.LogError("Something went wrong you have Innvalid Operation Exception");
                 }
             }
 

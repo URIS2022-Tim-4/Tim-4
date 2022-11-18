@@ -55,6 +55,7 @@ namespace Emby.Server.Implementations.ScheduledTasks.Triggers
         /// </summary>
         public void Stop()
         {
+            // This method is empty because it is used just to stop waiting for the trigger action.
         }
 
         /// <summary>

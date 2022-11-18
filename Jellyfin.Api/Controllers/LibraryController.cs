@@ -214,9 +214,7 @@ namespace Jellyfin.Api.Controllers
                 ? null
                 : _userManager.GetUserById(userId.Value);
 
-            var item = itemId.Equals(default)
-                ? (userId is null || userId.Value.Equals(default)
-                    ? _libraryManager.RootFolder
+            var item = itemId.Equals(default) ? (userId is null || userId.Value.Equals(default) ? _libraryManager.RootFolder
                     : _libraryManager.GetUserRootFolder())
                 : _libraryManager.GetItemById(itemId);
 

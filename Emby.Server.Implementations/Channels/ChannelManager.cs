@@ -361,8 +361,9 @@ namespace Emby.Server.Implementations.Channels
                 {
                     _fileSystem.DeleteFile(path);
                 }
-                catch
+                catch (DirectoryNotFoundException dirNotFound)
                 {
+                    Console.WriteLine(dirNotFound.Message);
                 }
 
                 return;

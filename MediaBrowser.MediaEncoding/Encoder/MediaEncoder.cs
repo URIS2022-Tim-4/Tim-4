@@ -961,11 +961,14 @@ namespace MediaBrowser.MediaEncoding.Encoder
                 {
                     ExitCode = process.ExitCode;
                 }
-                catch
+                catch (InvalidOperationException ex)
                 {
+                    throw new InvalidOperationException(ex.Message);
                 }
-
-                DisposeProcess(process);
+                finally
+                {
+                    DisposeProcess(process);
+                }
             }
 
             private void DisposeProcess(Process process)

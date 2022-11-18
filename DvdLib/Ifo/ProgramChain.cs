@@ -30,8 +30,6 @@ namespace DvdLib.Ifo
 
         private ushort _nextProgramNumber;
 
-        private ushort _prevProgramNumber;
-
         private ushort _goupProgramNumber;
 
         public ProgramPlaybackMode PlaybackMode { get; private set; }
@@ -70,7 +68,6 @@ namespace DvdLib.Ifo
             SubpictureStreamControl = br.ReadBytes(128);
 
             _nextProgramNumber = br.ReadUInt16();
-            _prevProgramNumber = br.ReadUInt16();
             _goupProgramNumber = br.ReadUInt16();
 
             StillTime = br.ReadByte();

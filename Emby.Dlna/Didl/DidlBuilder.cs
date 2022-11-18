@@ -486,7 +486,7 @@ namespace Emby.Dlna.Didl
         /// </summary>
         /// <param name="episode">The episode.</param>
         /// <returns>For single episodes returns just the number. For double episodes - current and ending numbers.</returns>
-        private string GetEpisodeIndexFullName(Episode episode)
+        private static string GetEpisodeIndexFullName(Episode episode)
         {
             var name = string.Empty;
             if (episode.IndexNumber.HasValue)
@@ -507,7 +507,7 @@ namespace Emby.Dlna.Didl
         /// </summary>
         /// <param name="episode">The episode.</param>
         /// <returns>Formatted episode number.</returns>
-        private string GetEpisodeNumberDisplayName(Episode episode)
+        private static string GetEpisodeNumberDisplayName(Episode episode)
         {
             var name = string.Empty;
             var seasonNumber = episode.Season?.IndexNumber;
@@ -721,9 +721,7 @@ namespace Emby.Dlna.Didl
             // Don't filter on dc:title because not all devices will include it in the filter
             // MediaMonkey for example won't display content without a title
             // if (filter.Contains("dc:title"))
-            {
-                AddValue(writer, "dc", "title", GetDisplayName(item, itemStubType, context), NsDc);
-            }
+            AddValue(writer, "dc", "title", GetDisplayName(item, itemStubType, context), NsDc);
 
             WriteObjectClass(writer, item, itemStubType);
 

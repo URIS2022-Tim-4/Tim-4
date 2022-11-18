@@ -7,7 +7,9 @@ using System.Collections.Generic;
 
 namespace Emby.Dlna.PlayTo
 {
-    public class UBaseObject
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+    public class UBaseObject : IEquatable<UBaseObject>
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
         public string Id { get; set; }
 
@@ -52,11 +54,16 @@ namespace Emby.Dlna.PlayTo
             }
         }
 
-        public bool Equals(UBaseObject obj)
+        public bool Equals(UBaseObject other)
         {
-            ArgumentNullException.ThrowIfNull(obj);
+            ArgumentNullException.ThrowIfNull(other);
 
-            return string.Equals(Id, obj.Id, StringComparison.Ordinal);
+            return string.Equals(Id, other.Id, StringComparison.Ordinal);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as UBaseObject);
         }
     }
 }
