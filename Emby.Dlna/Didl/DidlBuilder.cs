@@ -507,7 +507,7 @@ namespace Emby.Dlna.Didl
         /// </summary>
         /// <param name="episode">The episode.</param>
         /// <returns>Formatted episode number.</returns>
-        private string GetEpisodeNumberDisplayName(Episode episode)
+        private static string GetEpisodeNumberDisplayName(Episode episode)
         {
             var name = string.Empty;
             var seasonNumber = episode.Season?.IndexNumber;

@@ -121,7 +121,7 @@ namespace Emby.Drawing
         {
             if (options is null)
             {
-                throw new ArgumentNullException(nameof(options));
+                return false;
             }
 
             ItemImageInfo originalImage = options.Image;

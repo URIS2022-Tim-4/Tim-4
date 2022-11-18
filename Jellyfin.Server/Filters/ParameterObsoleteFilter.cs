@@ -16,14 +16,12 @@ namespace Jellyfin.Server.Filters
         {
             foreach (var parameterDescription in context.ApiDescription.ParameterDescriptions.Where(parameterDescription => parameterDescription.CustomAttributes().OfType<ParameterObsoleteAttribute>().Any()))
             {
+                foreach (var parameter in operation.Parameters)
                 {
-                    foreach (var parameter in operation.Parameters)
+                    if (parameter.Name.Equals(parameterDescription.Name, StringComparison.Ordinal))
                     {
-                        if (parameter.Name.Equals(parameterDescription.Name, StringComparison.Ordinal))
-                        {
-                            parameter.Deprecated = true;
-                            break;
-                        }
+                        parameter.Deprecated = true;
+                        break;
                     }
                 }
             }

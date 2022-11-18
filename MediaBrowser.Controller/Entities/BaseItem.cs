@@ -1272,11 +1272,11 @@ namespace MediaBrowser.Controller.Entities
 
                     await LibraryManager.UpdateImagesAsync(this).ConfigureAwait(false); // ensure all image properties in DB are fresh
                 }
-                catch (NullReferenceException ex)
+                catch (NullReferenceException)
                 {
                     Logger.LogError("Something went wrong you have a Null Reference Exception");
                 }
-                catch (InvalidOperationException ex)
+                catch (InvalidOperationException)
                 {
                     Logger.LogError("Something went wrong you have Innvalid Operation Exception");
                 }

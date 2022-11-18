@@ -224,7 +224,7 @@ namespace Emby.Server.Implementations.IO
             return GetFileSystemMetadata(fileInfo);
         }
 
-        private bool Check(FileSystemInfo info)
+        private static bool Check(FileSystemInfo info)
         {
             return info is DirectoryInfo || (info.Attributes & FileAttributes.Directory) == FileAttributes.Directory;
         }
