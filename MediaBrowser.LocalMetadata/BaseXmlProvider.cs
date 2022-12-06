@@ -58,6 +58,7 @@ namespace MediaBrowser.LocalMetadata
 
             var path = file.FullName;
 
+            // Test
             try
             {
                 result.Item = new T();
